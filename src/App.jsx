@@ -5,6 +5,7 @@ import { Dashboard, Asset, Login, Register } from "./pages";
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
 import DashboardLayout from "./components/layout/DashboardLayout";
+import RequireAuth from "./utils/RequireAuth";
 
 axios.defaults.baseURL = "http://localhost:8081/api/v1";
 axios.defaults.withCredentials = true;

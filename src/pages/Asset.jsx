@@ -1,36 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AddAsset from "../components/AddAsset";
+import AssetTable from "../components/assetComponents/AssetTable";
+import { assetList } from "../constants/index";
+import axios from "axios";
 
 const Asset = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get("/asset");
+      setData(res.data.data);
+      return data;
+    };
+    getData();
+  }, []);
   return (
     <section className="p-3">
       <div className="flex items-center justify-between mb-3 px-10">
         <h1 className="text-2xl font-semibold">Assets</h1>
         <AddAsset />
       </div>
-      <div className="px-10 py-2 mx-10 border">
+      <div className="px-10 py-2 mx-5">
         <div className="w-full overflow-x-auto">
-          <table className="table w-full">
-            <thead className="border">
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody className="boder">
-              <tr className="border">
-                <th>1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
-          </table>
+          <AssetTable data={data} />
         </div>
       </div>
     </section>

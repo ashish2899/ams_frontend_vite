@@ -20,6 +20,8 @@ const Login = () => {
         password,
       });
 
+      console.log(data.error);
+
       if (data.error) {
         toast.error(data.error);
       } else {

@@ -1,22 +1,24 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const PrivateRoutes = () => {
-  const authToken = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("token="));
+  const authToken = document.cookie;
 
-  const location = useLocation();
 
-  const isAuthenticated = authToken != null;
+  const isAuthenticated = authToken !== null;
 
   if (
-    (isAuthenticated && location.pathname === "/login") ||
-    location.pathname === "/register"
+    isAuthenticated &&
+    (location.pathname === "/login" || location.pathname === "/register")
   ) {
-    return <Navigate to="/" replace />;
+    console.log(isAuthenticated);
+    return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  return isAuthenticated ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
+  );
   // let auth = { token: false };
 
   // console.log(auth.token);
